@@ -1,0 +1,2 @@
+# VideoStreamingMechanism
+we propose a new technique to balance the traffic for serving multiple users without delay in spite off all the computation power required by video transcoding. We aim towards optimizing the Quality of Experience (QoE) by considering dynamic adaptive video streaming techniques. One issue that can the QoE is the workload on content distribution servers. Thus, we plan to reduce the load on the server’s workload by designing an architecture that will manage the load on the servers without compromising the quality of the video to be streamed.
