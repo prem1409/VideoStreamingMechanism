@@ -26,8 +26,8 @@ We have used UGC Dataset of YouTube is a sampling from thousands of User Generat
 Dataset Link: https://media.withyoutube.com/
 
 ## Overall Architecture Flow
-The overall architecture for our system can be found at this link: https://drive.google.com/open?id=1iwIBTI7z1PDO9VVkPoPX79s50h9vDMKd
-
+The overall architecture for our system can be found at this link:
+![Overall Architecture Flow](https://github.com/prem1409/VideoStreamingMechanism/blob/master/MM802_Project_Architecture.png)
 
 #### Authors:
 
