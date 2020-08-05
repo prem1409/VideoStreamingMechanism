@@ -28,3 +28,12 @@ Dataset Link: https://media.withyoutube.com/
 ## Overall Architecture Flow
 The overall architecture for our system can be found at this link: https://drive.google.com/open?id=1iwIBTI7z1PDO9VVkPoPX79s50h9vDMKd
 
+
+#### Authors:
+
+| Name | github handle |
+| ---- | ------ |
+| Jatin Dawar | [@jatin008](https://github.com/jatin008) |
+| Prem Raheja     | [@prem1409](https://github.com/prem1409) |
+| Utkarsh Vashisth     | [@uvashisth](https://github.com/uvashisth) |
+| Vaibhav Rakheja | [@vaibhavrakheja11](https://github.com/vaibhavrakheja11) |
