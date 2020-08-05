@@ -1,0 +1,45 @@
+<!-- <div class="watchContainer">
+
+    <div class="videoControls watchNav">
+        <button ng-click="goBack()"><i class="fas fa-arrow-left"></i></button>
+        <h1>{{watchUrl.video_name}}</h1>
+    </div>
+	
+
+
+    <video controls autoplay id="video" >
+		<source src="{{trustSrc(watchUrl.video_url)}}" type="video/mp4">
+			
+    </video>
+</div>
+<span id="click"></span> -->
+
+
+<div class="watchContainer">
+
+    <div class="videoControls watchNav">
+        <button ng-click="goBack()"><i class="fas fa-arrow-left"></i></button>
+        <h1>{{watchUrl.video_name}}</h1>
+    </div>
+
+
+    <div class="videoControls upNext" style="display:none;">
+
+        <button ng-click="restartVideo()"><i class="fas fa-redo"></i></button>
+
+        <div class="upNextContainer">
+            <h2>Up next:</h2>
+            <h3>Vaibhav1</h3>
+            <h3>Vaibhav2</h3>
+
+            <button class="playNext" ng-click="watchVideo(watchId)">
+                <i class="fas fa-play"></i> Play
+            </button>
+        </div>
+    
+    </div>
+
+    <video id="video1" controls autoplay onended="angular.element(this).scope().showUpNext()" >
+        <source src='{{trustSrc(watchUrl.video_url)}}' type="video/mp4">
+    </video>
+</div>

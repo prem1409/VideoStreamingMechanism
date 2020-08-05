@@ -1,0 +1,1197 @@
+<!doctype html>
+<html lang="en" ng-app="APP">
+	<head>
+		<meta charset="UTF-8">
+		<title>KHIJJFLIX</title>
+		<link rel="shortcut icon" type="image/x-icon" href="assets/images/KhijjFlixLogoSmall.png" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<title>Welcome to KhijjFlix</title>
+		<style>
+			html,
+			body {
+				height: 100%;
+				padding: 0;
+				margin: 0;
+			}
+
+			* {
+				font-family: Arial, Helvetica, sans-serif;
+				color: #333;
+				box-sizing: border-box;
+			}
+
+			h3 {
+				color: #e5e5e5;
+			}
+
+			a h3:hover {
+				color: #fff;
+			}
+			
+
+			a {
+				text-decoration: none;
+				color: #0654ba;
+			}
+
+			.wrapper {
+				min-width: 1050px;
+				min-height: 100%;
+				background-color: #141414;
+			}
+
+			.signInContainer {
+				background-color: #141414;
+				height: 100vh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				text-decoration-color: white;
+			}
+
+			.column {
+				background-color: #fff;
+				min-height: 300px;
+				max-height: 100%;
+				width: 450px;
+				box-shadow: rgba(0,0,0, 0.1) 0 1px 2px;
+				padding: 20px 35px;
+				overflow-y: auto;
+			}
+
+			.column form {
+				display: flex;
+				flex-direction: column;
+				padding-top: 24px;
+			}
+
+			.column form input[type="text"],
+			.column form input[type="email"],
+			.column form input[type="password"] {
+				font-size: 14px;
+				margin: 10px 0;
+				border: none;
+				border-bottom: 1px solid #dedede;
+			}
+
+			.column form input[type="submit"] {
+				background-color: #4285f4;
+				color: #fff;
+				height: 36px;
+				width: 88px;
+				border: none;
+				border-radius: 3px;
+				font-weight: 500;
+				margin-top: 10px;
+				margin-bottom: 20px;
+				font-size: 16px;
+			}
+
+			.column .header {
+				padding: 20px 0;
+			}
+
+			.column h3 {
+				font-size: 24px;
+				font-weight: 400;
+				line-height: 32px;
+				margin: 0;
+				padding-top: 16px;
+				color: #000;
+			}
+
+			.column .header span {
+				font-size: 14px;
+			}
+
+			.column .header img {
+				width: 100px;
+			}
+
+			.signInMessage {
+				font-size: 14px;
+				font-weight: 400;
+				text-decoration: none;
+			}
+
+			.errorMessage {
+				color: #f00;
+				font-size: 14px;
+				font-weight: 400;
+				text-align: center;
+			}
+
+			.previewImage,
+			.previewVideo {
+				width: 100%;
+			}
+
+			.previewContainer {
+				position: relative;
+				display: flex;
+			}
+
+			.previewContainer.small {
+				width: 230px;
+				height: 129px;
+				margin-right: 4px;
+				display: inline-flex;
+			}
+
+			.previewContainer.small img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+
+			.previewOverlay {
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0,0,0,0.3);
+				position: absolute;
+			}
+
+			.previewOverlay .mainDetails h3 {
+				color: #fff;
+				font-size: 40px;
+				margin: 15px 0;
+			}
+
+			.previewOverlay .mainDetails h4 {
+				color: #fff;
+				font-size: 20px;
+				margin-top: 0;
+			}
+
+			.previewOverlay .mainDetails {
+				position: relative;
+				top: 35%;
+				margin-left: 50px;
+				display: flex;
+				flex-direction: column;
+			}
+
+			.mainDetails button {
+				background-color: rgba(51,51,51,0.4);
+				color: #fff;
+				border: none;
+				min-width: 150px;
+				padding: 0 38px;
+				height: 50px;
+				max-height: 50px;
+				font-size: 18px;
+				border-radius: 2px;
+				margin-bottom: 15px;
+				margin-right: 5px;
+				cursor: pointer;
+			}
+
+			button i {
+				color: inherit;
+			}
+
+			.mainDetails button:hover {
+				background-color: #e6e6e6;
+				color: #000;
+			}
+
+			.category {
+				display: flex;
+				flex-direction: column;
+				padding: 10px 0;
+			}
+
+			.entities,
+			.videos {
+				overflow-x: auto;
+				overflow-y: hidden;
+				white-space: nowrap;
+			}
+
+			.previewCategories {
+				padding: 0 50px;
+			}
+
+			.errorBanner {
+				color: #fff;
+				position: absolute;
+				top: 25%;
+				width: 100%;
+				text-align: center;
+				font-size: 18px;
+			}
+
+			.season {
+				display: flex;
+				flex-direction: column;
+				padding: 10px 50px;
+			}
+
+			.episodeContainer {
+				display: inline-flex;
+				justify-content: center;
+				margin-right: 4px;
+			}
+
+			.episodeContainer .contents {
+				display: flex;
+				flex-direction: column;
+				width: 230px;
+				position: relative;
+			}
+
+			.episodeContainer img {
+				width: 230px;
+				height: 129px;
+				object-fit: cover;
+			}
+
+			.episodeContainer .videoInfo h4,
+			.episodeContainer .videoInfo span {
+				color: #fff;
+				width: 100%;
+				white-space: normal;
+			}
+
+			.episodeContainer .videoInfo {
+				max-height: 200px;
+				overflow-y: auto;
+			}
+
+			.previewCategories.noScroll .category .entities {
+				white-space: normal;
+			}
+			
+
+			.watchContainer video {
+				width: 100%;
+			}
+
+			.videoControls {
+				position: absolute;
+				width: 100%;
+				z-index: 1;
+				display: flex;
+				align-items: center;
+				background-color: rgba(0,0,0,0.3);
+			}
+
+			.videoControls h1 {
+				color: #fff;
+			}
+
+			.videoControls button {
+				font-size: 50px;
+				padding: 50px;
+				color: #fff;
+				background-color: transparent;
+				border: none;
+			}
+
+			.upNext {
+				height: 100%;
+				justify-content: center;
+			}
+
+			.upNextContainer button {
+				padding: 0;
+			}
+
+			.upNextContainer h2,
+			.upNextContainer h3 {
+				color: #fff;
+			}
+
+			.watchNav {
+				z-index: 2;
+			}
+
+			.seen {
+				color: #2ecc71;
+				font-size: 26px;
+				position: absolute;
+				top: 5px;
+				left: 5px;
+			}
+
+			.topBar {
+				position: fixed;
+				width: 100%;
+				z-index: 1;
+				display: flex;
+				align-items: center;
+				padding: 0 60px;
+				height: 50px;
+				box-sizing: border-box;
+				min-width: 1050px;
+				transition: background-color 200ms linear;
+			}
+
+			.topBar.scrolled {
+				background-image: linear-gradient(to bottom, black, #333);
+				transition: background-color 200ms linear;
+			}
+
+			.logoContainer {
+				height: 40px;
+			}
+
+			.logoContainer img {
+				height: 100%;
+			}
+
+			.navLinks {
+				display: flex;
+				list-style: none;
+			}
+
+			.navLinks a {
+				color: #fff;
+				font-size: 14px;
+				margin-left: 20px;
+			}
+
+			.rightItems {
+				text-align: right;
+				flex: 1;
+			}
+
+			.rightItems i {
+				color: #fff;
+				font-size: 20px;
+				margin-left: 10px;
+			}
+
+			.previewCategories h1 {
+				color: #e5e5e5;
+			}
+
+			.textboxContainer {
+				padding: 100px 50px;
+			}
+
+			.searchInput {
+				height: 50px;
+				width: 600px;
+				border: 1px solid #dedede;
+				background-color: transparent;
+				color: #fff;
+				font-size: 20px;
+				padding: 5px 10px;
+				border-radius: 3px;
+			}
+
+			.settingsContainer {
+				padding-top: 60px;
+				background-color: transparent;
+				width: 80%;
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			.settingsContainer h2 {
+				color: #fff;
+				margin-top: 0;
+			}
+
+			.settingsContainer .formSection {
+				display: flex;
+				flex-direction: column;
+				margin: 20px 0;
+				border-bottom: 1px solid #dedede;
+				padding-bottom: 20px;
+			}
+
+			.settingsContainer form input[type="text"],
+			.settingsContainer form input[type="email"],
+			.settingsContainer form input[type="password"] {
+				width: 300px;
+				height: 40px;
+				font-size: 15px;
+				margin: 5px 0;
+				border: none;
+				border-radius: 3px;
+				padding: 0 5px;
+			}
+
+			.settingsContainer form input[type="submit"] {
+				background-color: #dc1928;
+				width: 100px;
+				height: 40px;
+			}
+
+			.alertSuccess,
+			.alertError {
+				margin: 10px 0;
+			}
+
+			.alertError {
+				color: #dc1928;
+			}
+
+			.alertSuccess {
+				color: #2ecc71;
+			}
+
+			.formSection h3 {
+				padding: 0;
+				color: #fff;
+				font-size: 12px;
+			}
+
+			#preloader {
+				background: #141414;
+				height: 100%;
+				width: 100%;
+				position: relative;
+				}
+
+				#preloader .outer {
+				position: relative;
+				margin: auto;
+				width: 100%;
+				text-align: center;
+				height: 200px;
+				padding-top: 50px;
+				}
+
+				pre {
+				display: block;
+				padding: 9.5px;
+				margin: 0 0 10px;
+				font-size: 13px;
+				line-height: 1.42857143;
+				color: #333;
+				word-break: break-all;
+				word-wrap: break-word;
+				background-color: #f5f5f5;
+				border: 1px solid #ccc;
+				border-radius: 0;
+				}
+				.infinity {
+				width: 120px;
+				height: 60px;
+				position: relative;
+				margin: auto;
+				}
+				.infinity div,
+				.infinity span {
+				position: absolute;
+				}
+				.infinity div {
+				top: 0;
+				left: 50%;
+				width: 60px;
+				height: 60px;
+				animation: rotate 6.9s linear infinite;
+				}
+				.infinity div span {
+				left: -8px;
+				top: 50%;
+				margin: -8px 0 0;
+				width: 16px;
+				height: 16px;
+				display: block;
+				background: #ff4c60;
+				box-shadow: 2px 2px 8px rgba(255, 76, 96, 0.09);
+				border-radius: 50%;
+				transform: rotate(90deg);
+				animation: move 6.9s linear infinite;
+				}
+				.infinity div span:before,
+				.infinity div span:after {
+				content: "";
+				position: absolute;
+				display: block;
+				border-radius: 50%;
+				width: 14px;
+				height: 14px;
+				background: inherit;
+				top: 50%;
+				left: 50%;
+				margin: -7px 0 0 -7px;
+				box-shadow: inherit;
+				}
+				.infinity div span:before {
+				animation: drop1 0.8s linear infinite;
+				}
+				.infinity div span:after {
+				animation: drop2 0.8s linear infinite 0.4s;
+				}
+				.infinity div:nth-child(2) {
+				animation-delay: -2.3s;
+				}
+				.infinity div:nth-child(2) span {
+				animation-delay: -2.3s;
+				}
+				.infinity div:nth-child(3) {
+				animation-delay: -4.6s;
+				}
+				.infinity div:nth-child(3) span {
+				animation-delay: -4.6s;
+				}
+				.infinityChrome {
+				width: 128px;
+				height: 60px;
+				margin: auto;
+				}
+				.infinityChrome div {
+				position: absolute;
+				width: 16px;
+				height: 16px;
+				background: #ff4c60;
+				box-shadow: 2px 2px 8px rgba(255, 76, 96, 0.09);
+				border-radius: 50%;
+				animation: moveSvg 6.9s linear infinite;
+				-webkit-filter: url(#goo);
+				filter: url(#goo);
+				transform: scaleX(-1);
+				offset-path: path(
+					"M64.3636364,29.4064278 C77.8909091,43.5203348 84.4363636,56 98.5454545,56 C112.654545,56 124,44.4117395 124,30.0006975 C124,15.5896556 112.654545,3.85282763 98.5454545,4.00139508 C84.4363636,4.14996252 79.2,14.6982509 66.4,29.4064278 C53.4545455,42.4803627 43.5636364,56 29.4545455,56 C15.3454545,56 4,44.4117395 4,30.0006975 C4,15.5896556 15.3454545,4.00139508 29.4545455,4.00139508 C43.5636364,4.00139508 53.1636364,17.8181672 64.3636364,29.4064278 Z"
+				);
+				}
+				.infinityChrome div:before,
+				.infinityChrome div:after {
+				content: "";
+				position: absolute;
+				display: block;
+				border-radius: 50%;
+				width: 14px;
+				height: 14px;
+				background: inherit;
+				top: 50%;
+				left: 50%;
+				margin: -7px 0 0 -7px;
+				box-shadow: inherit;
+				}
+				.infinityChrome div:before {
+				animation: drop1 0.8s linear infinite;
+				}
+				.infinityChrome div:after {
+				animation: drop2 0.8s linear infinite 0.4s;
+				}
+				.infinityChrome div:nth-child(2) {
+				animation-delay: -2.3s;
+				}
+				.infinityChrome div:nth-child(3) {
+				animation-delay: -4.6s;
+				}
+				@keyframes moveSvg {
+				0% {
+					offset-distance: 0%;
+				}
+				25% {
+					background: #6c6ce5;
+				}
+				75% {
+					background: #ffd15c;
+				}
+				100% {
+					offset-distance: 100%;
+				}
+				}
+				@keyframes rotate {
+				50% {
+					transform: rotate(360deg);
+					margin-left: 0;
+				}
+				50.0001%,
+				100% {
+					margin-left: -60px;
+				}
+				}
+				@keyframes move {
+				0%,
+				50% {
+					left: -8px;
+				}
+				25% {
+					background: #ffd15c;
+				}
+				75% {
+					background: #6c6ce5;
+				}
+				50.0001%,
+				100% {
+					left: auto;
+					right: -8px;
+				}
+				}
+				@keyframes drop1 {
+				100% {
+					transform: translate(32px, 8px) scale(0);
+				}
+				}
+				@keyframes drop2 {
+				0% {
+					transform: translate(0, 0) scale(0.9);
+				}
+				100% {
+					transform: translate(32px, -8px) scale(0);
+				}
+				}
+				
+				
+
+
+
+				
+
+		</style>
+		<div class ="topBar" autoscroll="true">
+			<div class="logoContainer">
+				<a href="">
+					<img src="assets/images/KhijjFlixLogo.png" alt="Logo">
+				</a>
+			</div>
+			<ul class="navLinks">
+				<li><a href="#/">Home</a></li>
+				<li><a href="#/">Shows</a></li>
+				<li><a href="#/">Sports</a></li>
+				<li><a href="#/upload">You</a></li>
+			</ul>
+			<div class="rightItems">
+				<a class="modal-trigger" modal-trigger href="#modal1"><i class="fas fa-film"></i></a>
+				<a href=""><i class="fas fa-search"></i></a>
+				<a href="#/profile"><i class="fas fa-user"></i></a>
+				
+			</div>
+		</div>
+
+	</head>
+	<body ng-controller="appController">
+		
+			
+			
+			<!-- Loader code goes here -->
+
+			<div id="preloader" style="height:100%;" ng-show="loading">
+				<div class="outer">
+				</div>
+				<div class="infinity">
+				  <div> <span></span></div>
+				  <div> <span></span></div>
+				  <div> <span></span></div>
+				</div>
+				<div class="infinityChrome">
+				  <div></div>
+				  <div></div>
+				  <div></div>
+				  <div></div>
+				  
+				</div>
+				</div>
+			
+
+			<!-- loader code ends here -->
+
+			<!-- Model code starts here -->
+			<div id="modal1" class="modal" style="background-color: #312f2f; width: 70%;">
+				<div class="modal-content">
+				  <h4><img src="assets/images/KhijjFlixLogo.png" alt="Logo"></h4>
+				  <p class="white-text">Video Encoding Settings</p>
+						<div class="row">
+							<div ng-repeat="format in formatData" class="col s2 m2 l2 center">
+								<a ng-click="selectEncoding(format.id,format.resolution)"><video muted="muted" autoplay loop style="width:10vw; max-height: 5vw;">
+									<source src='{{trustSrc(format.url)}}' type="video/mp4">
+										<!-- <source src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' type="video/mp4"> -->
+								</video>
+							</a>
+								<span class="white-text">{{format.resolution}}</span>
+							</div>
+						</div>
+					</div>
+				<div class="modal-footer white-text" style="background-color: #312f2f;">
+					<!-- <div class="row">
+						<div class="input-field col s6 m6 l6 white-text">
+							<select id="transcoding" name="transcoding" id="transcoding">
+								<option value="mp4">MP4</option>
+								<option value="webm">Webm</option>
+								<option value="avi">avi</option>
+								<option value="OGG">OGG</option>
+							</select>
+							<label>Video Format</label>
+					 	</div>
+					</div> -->
+
+					
+
+				  <a href="#!" class="modal-close btn-flat white-text">Agree</a>
+				</div>
+			  </div>
+
+			  <!-- Modal ends here -->
+
+
+			  <div class="fixed-action-btn" id="formatBtn">
+				<a class="btn-floating btn-large red">
+					<i class="fas fa-edit"></i>
+				</a>
+				<ul>
+				  <li><a  ng-click="selectFormat('mp4')" class="btn-floating red">MP4</a></li>
+				  <li><a ng-click="selectFormat('webm')" class="btn-floating yellow darken-1">Webm</a></li>
+				  <li><a  ng-click="selectFormat('ogv')" class="btn-floating green">OGV</OGG></a></li>
+				  <li><a ng-click="selectFormat('avi')" class="btn-floating blue">avi</a></li>
+				</ul>
+			  </div>
+		
+		<div ng-controller="mainController"></div>
+			<div class=" wrapper" style="padding:0; margin:0;">
+				<div class="main">
+					<div ng-view ng-show="cloading" autoscroll="true"></div>
+				</div> 		
+			</div>
+	</div>
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" crossorigin="anonymous"></script>
+		<script src="https://kit.fontawesome.com/06a651c8da.js" crossorigin="anonymous"></script>
+		
+		
+		
+		<script>
+		angular.module('APP',['ngRoute']).
+		config(function($routeProvider){
+			$routeProvider.
+			when('/',{templateUrl:'partials/main.html',controller:'mainController'}).
+			when('/login',{templateUrl:'partials/login.html',controller:'loginController'}).
+			when('/watch/:id',{templateUrl:'partials/watch.html',controller:'watchController'}).
+			when('/upload',{templateUrl:'partials/upload.html',controller:'uploadController'}).
+			when('/register',{templateUrl:'partials/register.html',controller:'resgisterController'}).
+			when('/view/:id',{templateUrl:'partials/view.html',controller:'viewController'}).
+			when('/profile',{templateUrl:'partials/profile.html',controller:'profileController'}).
+			otherwise({redirectTo:'/'})
+		}).
+		controller('mainController',['$scope','$http','$sce',function($scope,$http,$sce){
+
+			
+			$('.tooltipped').tooltip();
+			$scope.trustSrc = function(src) {
+				
+				return $sce.trustAsResourceUrl(src);
+			}
+			$scope.$emit('LOAD'); 
+			
+			// if(sessionStorage.getItem('username')==null || sessionStorage.getItem('username')==undefined)
+			// {
+			// 	window.location.href = "#/login";
+			// }
+			
+	// 		angular.element(document).ready(function () {
+    //     document.getElementById('msg').innerHTML = 'Hello';
+    // });
+
+			$http.get('http://35.223.92.185:80/videodetails').success(function(data){
+				//console.log(data);
+				
+				$scope.people=data['result'];
+				$scope.trending=data['result'];
+				video.load();
+				video.play();
+				
+				$scope.people = jQuery.parseJSON(JSON.stringify(data['result']));
+				$scope.trending = jQuery.parseJSON(JSON.stringify(data['trending']));
+				
+				//var randomNum = Math.floor((Math.random() * 1) + 1);
+				$scope.trending = $scope.trending[0];
+			 	$scope.keys=Object.keys($scope.people);
+			 	//console.log($scope.trending);
+				setTimeout(function () {
+					$scope.$emit('UNLOAD'); 
+					
+					$scope.$apply();
+					
+			}, 3000);
+			
+			if(sessionStorage.getItem('username')==null || sessionStorage.getItem('username')==undefined)
+			{
+				window.location.href = "#/login";
+			}
+			});
+			$scope.volumeToggle = function(button) {
+				var muted = $(".previewVideo").prop("muted");
+				$(".previewVideo").prop("muted", !muted);
+
+				$(button).find("i").toggleClass("fa-volume-mute");
+				$(button).find("i").toggleClass("fa-volume-up");
+			}
+
+			$scope.watchTrending = function(id)
+			{
+				window.location.href = "#/watch/"+id;
+			}
+
+			$scope.previewEnded = function () {
+				$(".previewVideo").toggle();
+				$(".previewImage").toggle();
+			}
+		}]).
+		controller('resgisterController',['$scope','$http','$routeParams',function($scope,$http,$routeParams){
+			$scope.PostDataResponse;
+					$scope.postdata = function (name, lastname, username, email, password) {
+						var postData = {
+						firstname: name,
+						username: username,
+						lastname : lastname,
+						email : email,
+						password : password,
+						isSubscribed : 0
+						};
+						$scope.username = username;
+						$scope.userId = 1;
+
+
+						var config = {
+							headers : {
+								'Content-Type': 'application/JSON'
+							}
+            			};
+					//Call the services
+					$http.post('http://35.223.92.185:80/api/login', JSON.stringify(postData), config)
+						.success(function (data, status, headers, config) {
+							$scope.PostDataResponse = data['result'];
+							console.log($scope.PostDataResponse);
+							//sessionStorage.setItem('key', 'value');
+							sessionStorage.setItem('username', $scope.PostDataResponse['username']);
+							sessionStorage.setItem('name', $scope.PostDataResponse['firstName']);
+							sessionStorage.setItem('password', $scope.PostDataResponse['password']);
+							sessionStorage.setItem('userId', $scope.PostDataResponse['id']);
+							sessionStorage.setItem('signUpDate', $scope.PostDataResponse['signUpDate']);
+							window.location.href = "#/login";
+
+							
+						})
+						.error(function (data, status, header, config) {
+							$scope.ResponseDetails = "Data: " + data +
+								"<hr />status: " + status +
+								"<hr />headers: " + header +
+								"<hr />config: " + config;
+						});
+					};
+					
+
+
+		}]).
+		controller('viewController',['$scope','$http','$routeParams',function($scope,$http,$routeParams){
+			$scope.person=$scope.people[$routeParams.id]
+		}]).
+		controller('profileController',['$scope','$http','$routeParams',function($scope,$http,$routeParams){
+			//alert();
+			$(document).scroll(function() {
+				var isScrolled = $(this).scrollTop() > 1;
+				$(".topBar").toggleClass("scrolled", isScrolled);
+			});
+
+			$scope.userDetails = {
+				'name' : sessionStorage.getItem('name'),
+				'username' : sessionStorage.getItem('username'),
+				'userId' : sessionStorage.getItem('userId'),
+				'EmailId' : sessionStorage.getItem('emailId')
+			}
+			
+
+			$scope.$on("$destroy", function() {
+				$(document).scroll(function() {
+				var isScrolled = $(this).scrollTop() > 300;
+				$(".topBar").toggleClass("scrolled", isScrolled);
+			})
+			});
+
+		}]).
+		controller('appController',['$scope','$http','$sce',function($scope,$http,$sce){
+			//console.log($(".topBar").height());
+			$scope.EncodingId = '15';
+			$scope.VideoFormat = 'mp4';
+			
+
+
+			$scope.formatData;
+			$scope.trustSrc = function(src) {
+				
+				return $sce.trustAsResourceUrl(src);
+			}
+			$(document).ready(function(){
+				$('.modal').modal();
+				$('select').formSelect();
+				$('.fixed-action-btn').floatingActionButton();
+
+				$http.get('http://35.223.92.185:80/resolution').success(function(data){
+				
+				$scope.formatData = data.result;
+				console.log($scope.formatData);
+				video.load();
+				video.play();
+				});
+
+
+
+			});
+
+			$scope.selectEncoding = function(str, resolution)
+			{
+				$scope.EncodingId = str;
+				M.toast({html: 'Selected Resolution of '+resolution});
+			}
+
+			$scope.selectFormat = function(str, )
+			{
+				$scope.VideoFormat = str;
+				M.toast({html: 'Selected Format of '+$scope.VideoFormat});
+			}
+       
+			$(document).scroll(function() {
+				var isScrolled = $(this).scrollTop() > 300;
+				$(".topBar").toggleClass("scrolled", isScrolled);
+			})
+			//$scope.person=$scope.people[$routeParams.id]
+			$scope.$on('LOAD',function(){$scope.loading=true});
+			$scope.$on('LOAD',function(){$scope.cloading=false});
+			$scope.$on('UNLOAD',function(){$scope.loading=false});
+			$scope.$on('UNLOAD',function(){$scope.cloading=true});
+
+		}]).
+		controller('watchController',['$scope','$http','$routeParams','$sce','$interval',function($scope,$http,$routeParams,$sce,$interval){
+			$scope.$emit('LOAD'); 
+			$scope.userId = 1;
+			$scope.watchId=$routeParams.id;
+			var video = document.getElementById("video1");
+			$('#formatBtn').hide();
+
+			$scope.$on("$destroy", function() {
+				$('#formatBtn').show();
+    			});
+
+
+
+			$scope.trustSrc = function(src) {
+				
+				return $sce.trustAsResourceUrl(src);
+			}
+
+			$scope.goBack = function () {
+				window.history.back();
+			}
+
+			$scope.startHideTimer = function () {
+				var timeout = null;
+				
+				$(document).on("mousemove", function() {
+					clearTimeout(timeout);
+					$(".watchNav").fadeIn();
+
+					timeout = setTimeout(function() {
+						$(".watchNav").fadeOut();
+					}, 2000);
+				})
+			}
+
+			
+
+			
+			
+			$http.get('http://35.223.92.185:80/videoplay?video_id='+$routeParams.id+'&encoding_id='+$scope.EncodingId+'&encoding_type='+$scope.VideoFormat).success(function(data){
+				$scope.watchUrl = data['result'];
+				//console.log($scope.watchUrl);
+				//
+				
+				video.load();
+				video.play();
+
+				setTimeout(function () {
+					
+					$( "#video1" ).trigger( "click" );
+					//alert();
+				
+			}, 7000);
+			$scope.$emit('UNLOAD'); 
+			});
+			initVideo();
+			 function initVideo(videoId, username) {
+				username = $scope.username;
+				setStartTime(videoId, username);
+			}
+
+			var timer;
+			var intervalRef;
+			$scope.currentDuration = 0;
+			$("#video1").on("playing", function(event) {
+					window.clearInterval(intervalRef);
+					var intervalRef = window.setInterval(function() {
+						updateProgress($routeParams.id, $scope.userId, event.target.currentTime);
+						console.log("Khijju mera bhhai")
+						console.log(event.target.currentTime);
+						$scope.currentDuration = event.target.currentTime;
+						return;
+					}, 5000);
+				})
+				.on("ended", function() {
+					//setFinished(videoId, username);
+					//window.clearInterval(timer);
+					window.clearInterval(intervalRef);
+					//window.location.reload;
+				});
+
+				$scope.$on("$destroy", function () {
+					console.log("Destroy called");
+					//video.stop();
+					window.clearInterval(intervalRef);
+				// When the scope of the controller is destroyed, cancel the interval
+				});
+
+				
+			
+
+
+			$scope.showUpNext = function () {
+				$(".upNext").fadeIn();
+			}
+
+			//var angularInterval = $interval(initVideo, 4000);
+
+			function addDuration(videoId, username) {
+				$.post("ajax/addDuration.php", { videoId: $routeParams.id, username: username }, function(data) {
+					if(data !== null && data !== "") {
+						alert(data);
+					}
+				})
+			}
+
+			function updateProgress(videoId, username, progress) {
+
+				console.log("updating progress..")
+				var config = {
+							headers : {
+								'Content-Type': 'application/JSON'
+							}
+            			};
+						data = 	{
+							"user_id": $scope.userId,
+							"video_id": $routeParams.id,
+							"duration": $scope.currentDuration
+						}
+					$http.post('http://35.223.92.185:80/videowatch', JSON.stringify(data), config)
+						.success(function (data, status, headers, config) {
+							console.log(data);
+						});
+						return;
+			}
+
+			function setFinished(videoId, username) {
+				$.post("ajax/setFinished.php", { videoId: videoId, username: username }, function(data) {
+					if(data !== null && data !== "") {
+						alert(data);
+					}
+				})
+			}
+
+			function setStartTime(videoId, username) {
+				
+				
+				$http.get('http://35.223.92.185:80/videowatch?user_id='+$scope.userId+'&video_id='+$routeParams.id).success(function(data){
+					//console.log(data.result);
+					$scope.videoWatch = data.result;
+					if(jQuery.isEmptyObject($scope.videoWatch))
+					{
+						var config = {
+							headers : {
+								'Content-Type': 'application/JSON'
+							}
+            			};
+						data = 	{
+							"user_id":$scope.userId,
+							"video_id":$routeParams.id,
+							"duration": 12
+						}
+					$http.post('http://35.223.92.185:80/videowatch', JSON.stringify(data), config)
+						.success(function (data, status, headers, config) {
+							//console.log(data);
+						});
+					}
+					else
+					{
+						$("video").on("canplay", function() {
+							this.currentTime = $scope.videoWatch['duration'];
+							$("video").off("canplay");
+						})
+					}
+				});
+			}
+
+			
+			$scope.restartVideo = function(){
+				$("video")[0].currentTime = 0;
+				$("video")[0].play();
+				$(".upNext").fadeOut();
+			}
+
+			$scope.watchVideo = function(videoId) {
+				//console.log("Vaibhav")
+				window.location.href = "#/watch/e1dee51a-1c58-4d77-8062-7b7e2601631a"; // + videoId;
+				//$scope.$apply();
+			}
+
+			
+			
+
+
+		}]).
+		controller('uploadController',['$scope','$http','$routeParams',function($scope,$http,$routeParams){
+					
+			$('form').submit(function(e) {
+				var formData = new FormData($(this));
+				formData.append('image', $('#image')[0].files[0]);
+				//console.log($(this).attr('action'));
+				$.ajax({
+					url: $(this).attr('action'),
+					type: $(this).attr('method'),
+					data: formData,
+					cache: false,
+					contentType: false,
+					processData: false,
+					success: function() { alert('it works') },
+				});
+				e.preventDefault();
+			});
+
+
+		}]).
+		controller('loginController',['$scope','$http','$routeParams',function($scope,$http,$routeParams){
+
+
+			if(sessionStorage.getItem('username') != null)
+			{
+				document.getElementById("username").placeholder = sessionStorage.getItem('username');
+				//alert();
+			}
+			else{
+				//alert('noUserName');
+			}
+
+
+			$scope.getData = function (username, password) {
+			$http.get('http://35.223.92.185:80/api/login?username='+username+'&password='+password).success(function(data){
+				//$scope.people=data;
+				$scope.people= data['message'][0];
+
+
+				if(jQuery.isEmptyObject($scope.people))
+				{
+					alert('Incorrect Username Password Compination');
+				}
+				else
+				{
+				sessionStorage.setItem('username', data['message'][0]['username']);
+				sessionStorage.setItem('name', data['message'][0]['firstName']);
+				sessionStorage.setItem('userId', data['message'][0]['id']);
+				sessionStorage.setItem('emailId', data['message'][0]['email']);
+				//sessionStorage.setItem('pas', data['message'][0]['id']);
+				window.location.href = "#/";
+				}
+			});
+			};
+		}])
+		</script>
+		
+	</body>
+</html>

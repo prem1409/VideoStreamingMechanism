@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" ng-app="APP">
+	<head>
+		<meta charset="UTF-8">
+		<title>routing</title>
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<link rel="stylesheet" type="text/css" href="assets/style/style.css" />
+		<title>Welcome to KhijjFlix</title>
+	</head>
+	<body>
+	<div class="container">
+		<div class="main">
+			<div ng-controller="loginController">
+				<div ng-view></div>
+			</div> 		
+		</div>
+	</div>
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+		<script>
+		angular.module('APP',['ngRoute']).
+		config(function($routeProvider){
+			$routeProvider.
+			when('/',{templateUrl:'partials/login.html',controller:'loginController'}).
+			when('/register',{templateUrl:'partials/register.html',controller:'resgisterController'}).
+			when('/view/:id',{templateUrl:'partials/view.html',controller:'viewController'}).
+			otherwise({redirectTo:'/'})
+		}).
+		controller('loginController',['$scope','$http',function($scope,$http){
+			// $http.get('http://127.0.0.1:5000/api/login/vaibhavrakheja/password').success(function(data){
+			// 	$scope.people=data
+			// 	console.log(data)
+			// });
+
+
+			//Code for Navbar and SideNav
+  				//Or with jQuery
+
+  			// 		$(document).ready(function(){
+    		// 		$('.sidenav').sidenav();
+  			// 		});
+
+			// $http.get('data.js').success(function(data){
+			// 	$scope.people=data
+			// 	console.log(data)
+			// });
+		}]).
+		controller('resgisterController',['$scope','$http','$routeParams',function($scope,$routeParams,$http){
+			//$scope.person=$scope.people[$routeParams.id]
+			// $('#form').submit(function(e) {
+			// console.log($("#firstName").val());
+			// });
+			
+
+			// $http.post('/api/users/post', JSON.stringify(data)).then(function (response) {
+			// if (response.data)
+			// $scope.msg = "Post Data Submitted Successfully!";
+			// });
+
+			
+
+					$scope.postdata = function (name, lastname, username) {
+						var data = {
+						firstname: name,
+						username: username,
+						lastname : lastname
+						};
+						var config = {
+							headers : {
+								'Content-Type': 'application/JSON'
+							}
+            			}
+					//Call the services
+					$http.post('/ServerRequest/PostDataResponse', data, config)
+						.success(function (data, status, headers, config) {
+							$scope.PostDataResponse = data;
+						})
+						.error(function (data, status, header, config) {
+							$scope.ResponseDetails = "Data: " + data +
+								"<hr />status: " + status +
+								"<hr />headers: " + header +
+								"<hr />config: " + config;
+						});
+					};
+
+
+		}]).
+		controller('viewController',['$scope','$routeParams',function($scope,$routeParams){
+			$scope.person=$scope.people[$routeParams.id]
+		}])
+		</script>
+		
+	</body>
+</html>

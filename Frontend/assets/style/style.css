@@ -1,0 +1,153 @@
+html,
+body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    min-width: 1050px;
+    min-height: 100%;
+    background-color: #141414;
+}
+
+.signInContainer {
+    background-color: #efefee;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.column {
+    background-color: #fff;
+    min-height: 300px;
+    max-height: 100%;
+    width: 450px;
+    box-shadow: rgba(0,0,0, 0.1) 0 1px 2px;
+    padding: 20px 35px;
+    overflow-y: auto;
+}
+
+.column form {
+    display: flex;
+    flex-direction: column;
+    padding-top: 24px;
+}
+
+.column form input[type="text"],
+.column form input[type="email"],
+.column form input[type="password"] {
+    font-size: 14px;
+    margin: 10px 0;
+    border: none;
+    border-bottom: 1px solid #dedede;
+}
+
+.column form input[type="submit"] {
+    background-color: #4285f4;
+    color: #fff;
+    height: 36px;
+    width: 88px;
+    border: none;
+    border-radius: 3px;
+    font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.column .header {
+    padding: 20px 0;
+}
+
+.column h3 {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+    margin: 0;
+    padding-top: 16px;
+    color: #000;
+}
+
+.column .header span {
+    font-size: 14px;
+}
+
+.column .header img {
+    width: 100px;
+}
+
+.signInMessage {
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+.errorMessage {
+    color: #f00;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.previewImage,
+.previewVideo {
+    width: 100%;
+}
+
+.previewContainer {
+    position: relative;
+    display: flex;
+}
+
+.previewOverlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.3);
+    position: absolute;
+}
+
+.previewOverlay .mainDetails h3 {
+    color: #fff;
+    font-size: 40px;
+    margin: 15px 0;
+}
+
+.previewOverlay .mainDetails {
+    position: relative;
+    top: 35%;
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.mainDetails button {
+    background-color: rgba(51,51,51,0.4);
+    color: #fff;
+    border: none;
+    min-width: 150px;
+    padding: 0 38px;
+    height: 50px;
+    max-height: 50px;
+    font-size: 18px;
+    border-radius: 2px;
+    margin-bottom: 15px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+button i {
+    color: inherit;
+}
+
+.mainDetails button:hover {
+    background-color: #e6e6e6;
+    color: #000;
+}

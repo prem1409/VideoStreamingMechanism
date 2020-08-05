@@ -1,0 +1,47 @@
+
+
+<!-- Main page code here. No header nav bar included in here.-->
+
+<div class='previewContainer'>
+
+	<img src='{{trending.thumbnail_url}}' class='previewImage' hidden>
+
+	<video id="video" autoplay muted class='previewVideo' onended='angular.element(this).scope().previewEnded()' >
+		<source src="{{trustSrc(trending.video_url)}}" type='video/mp4'>
+	</video>
+
+	<div class='previewOverlay'>
+		
+		<div class='mainDetails'>
+			<h3>{{trending.video_name}}</h3><h5 class="white-text">{{trending.video_count}} views</h5>
+			
+
+			<div class='buttons'>
+				<button ng-click="watchTrending(trending.video_id)"><i class='fas fa-play'></i> Play</button>
+				<button ng-click='volumeToggle(this)'><i class='fas fa-volume-mute'></i></button>
+			</div>
+
+		</div>
+
+	</div>
+</div>
+
+
+<div class='previewCategories'>
+	<div ng-repeat="(key, persons) in people">
+	<div class='category'>
+		<a href='category.php?id=$categoryId'>
+			<h3 style="font-size: 1vw;">{{key}}</h3>
+		</a>
+	</div>
+	<div class='entities hover'>
+		<div ng-repeat="person in persons" class='previewContainer small'>
+			<a href='#/watch/{{person.video_id}}' >	
+			<img src='{{person.thumbnail_url}}' class="tooltipped" data-position="top" data-tooltip="{{person.video_name}}">
+			</a>
+		</div>
+		</div>
+		
+	</div>
+</div>
+
