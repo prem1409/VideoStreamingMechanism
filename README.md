@@ -2,7 +2,7 @@
 
 We propose a new technique to balance the traffic for serving multiple users without delay in spite off all the computation power required by video transcoding. We aim towards optimizing the Quality of Experience (QoE) by considering dynamic adaptive video streaming techniques. One issue that can the QoE is the workload on content distribution servers. Thus, we plan to reduce the load on the server’s workload by designing an architecture that will manage the load on the servers without compromising the quality of the video to be streamed. <br>
 Online Video Streaming is multimedia that is constantly received by and presented to an end-user while being delivered by a provider. We have deployed our application over Google Cloud Platform. <br>
-This folder contains the code used in our final project for MM802 Multimedia Communications whose course intructor is Dr. MOHAMMED ELMORSY
+This folder contains the code used in our final project for MM802 Multimedia Communications whose course intructor is Dr. MOHAMMED ELMORSY.
 
 ## Project 
 This is a full application made for video streaming.  <br>
